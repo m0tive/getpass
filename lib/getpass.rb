@@ -62,13 +62,3 @@ module Getpass
 
   module_function :getpass
 end
-
-if __FILE__ == $0
-    puts 'Getpass.getpass ' << Getpass.getpass
-
-    include Getpass
-
-    puts 'A: ' << getpass(:prompt => 'Q: ')
-    getpass :prompt => 'Password: '
-    getpass :prompt => 'Ssssssh: ', :echo => ''
-end
