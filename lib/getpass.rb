@@ -2,7 +2,7 @@ require 'rbconfig'
 
 module Getpass
   if Config::CONFIG['host_os'] =~ /mswin|mingw/
-    require "Win32API"
+    require 'Win32API'
     @@_getch = Win32API.new('crtdll', '_getch', [], 'L')
     @@_kbhit = Win32API.new('crtdll', '_kbhit', [], 'L')
 
@@ -32,7 +32,7 @@ module Getpass
   end
 
   def getpass(opts = {})
-    STDOUT.print opts[:prompt] unless opts[:prompt].nil?
+    $stdout.print opts[:prompt] unless opts[:prompt].nil?
     echo = (opts[:echo] || '*').to_s
     echoLen = echo.length
     clear = "#{"\b" * echoLen}#{' ' * echoLen}#{"\b" * echoLen}"
@@ -48,16 +48,16 @@ module Getpass
 
       # Only push visible characters
       if id > 31 && id != 127 && id != 224
-        STDOUT.print echo unless echo.empty?
+        $stdout.print echo unless echo.empty?
         pass << char
       elsif id == 8 # backspace
         pass.sub! /.$/, ''
-        STDOUT.print clear unless echo.empty?
+        $stdout.print clear unless echo.empty?
       end
     end
   ensure
     Getpass.post_get
-    STDOUT.print "\n" unless echo.empty?
+    $stdout.print "\n" unless echo.empty?
   end
 
   module_function :getpass
