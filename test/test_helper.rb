@@ -8,7 +8,7 @@ class GetpassTest < Test::Unit::TestCase
     char.is_a?(Fixnum) ? char : char[0].ord
   end
 
-  if Config::CONFIG['host_os'] =~ /mswin|mingw/
+  if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
     require "Win32API"
     @@_ungetch = Win32API.new('crtdll', '_ungetch', [], 'L')
 

@@ -1,7 +1,7 @@
 require 'rbconfig'
 
 module Getpass
-  if Config::CONFIG['host_os'] =~ /mswin|mingw/
+  if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
     require 'Win32API'
     @@_getch = Win32API.new('crtdll', '_getch', [], 'L')
     @@_kbhit = Win32API.new('crtdll', '_kbhit', [], 'L')
